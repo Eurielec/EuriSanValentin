@@ -1,5 +1,8 @@
-const FormEnviar = () =>{
-    return(
+const FormEnviar = () => {
+    const { state } = useLocation();
+    const { emisor } = state;
+
+    return (
         <>
         </>
     )

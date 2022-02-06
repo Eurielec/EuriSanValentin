@@ -3,9 +3,11 @@ import { NavBar } from ".";
 
 
 const Layout = () => {
+    const { state } = useLocation();
+    const { emisor } = state;
     return (
         <>
-            <NavBar />
+            <NavBar emisor={emisor}/>
             <Outlet />
         </>
     );
