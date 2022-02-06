@@ -15,7 +15,7 @@ const Login = () => {
                 onChange={ev => setEmisor(ev.target.value)} />
 
             <Button onClick={navigate("/enviar", {state: {emisor: emisor}})}>
-
+                Enviar
             </Button>
         </section>)
 };
