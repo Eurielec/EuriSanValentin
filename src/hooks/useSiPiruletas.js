@@ -2,17 +2,15 @@ import { querySiPiruletas } from "../queries";
 
 const useSiPiruletas = ({ nombreCompletoOInsta }) => {
     // Receives nombreCompletoOInsta
-    // Returns { hasPiruletas, piruletas }
+    // Returns boolean hasPiruletas 
 
     const hasPiruletas = false;
-    const piruletas = [];
 
     if (nombreCompletoOInsta){
-        piruletas = querySiPiruletas(nombreCompletoOInsta={nombreCompletoOInsta}) //TODO: Query function
-        hasPiruletas = true
+        hasPiruletas = querySiPiruletas(nombreCompletoOInsta={nombreCompletoOInsta}) //TODO: Query function
     }
 
-    return ({ hasPiruletas, piruletas })
+    return ({ hasPiruletas })
 }
 
 export default useSiPiruletas

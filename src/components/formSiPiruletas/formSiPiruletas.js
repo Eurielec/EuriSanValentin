@@ -1,5 +1,4 @@
 import { useState } from "react";
-import FormSiPiruletasBody from "./formSiPiruletasBody";
 import FormSiPiruletasFields from "./formSiPiruletasFields";
 import { useSiPiruletas } from "../../hooks";
 
@@ -7,7 +6,7 @@ const FormSiPiruletas = () => {
 
     const {nombreCompletoOInsta, setNombreCompletoOInsta} = useState({})
 
-    const { hasPiruletas, piruletas } = useSiPiruletas({ nombreCompletoOInsta })
+    const { hasPiruletas } = useSiPiruletas({ nombreCompletoOInsta })
 
     return (
         <>
@@ -16,7 +15,7 @@ const FormSiPiruletas = () => {
             <div className="result-siPiruletas">
                 {
                     hasPiruletas ?
-                        <FormSiPiruletasBody piruletas={piruletas} />
+                        <p>¡Enhorabuena! Tienes piruletas esperándote, ve a Euri a recibirlas (A-208-L) :D</p> // TODO: Añadir Cuadro bonito
                         :
                         <p> Lo siento, no tienes piruletas :( </p>
                 }

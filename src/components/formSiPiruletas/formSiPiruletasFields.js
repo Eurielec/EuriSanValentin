@@ -18,9 +18,9 @@ const FormSiPiruletasFields = ({ setNombreCompletoOInsta }) => {
 
     return (
         <>
-            <input key="nombreCompleto" type="text" name="nombreCompleto" value={nombreCompleto} placeholder="Nombre Completo"
+            <input key="nombreCompleto" type="text" name="nombreCompleto" value={nombreCompleto} placeholder="Nombre Completo" disabled={instagram} // We only want filled either the NombreCompleto or the Instagram
                 onChange={ev => setNombreCompleto(ev.target.value)} />
-            <input key="instagram" type="text" name="instagram" value={instagram} placeholder="Tu cuenta de Instagram (sin @)"
+            <input key="instagram" type="text" name="instagram" value={instagram} placeholder="Tu cuenta de Instagram (sin @)" disabled={nombreCompleto}
                 onChange={ev => setInstagram(ev.target.value)} />
             <Button onClick={handlePiruletas({ nombreCompleto, instagram })}>
                 Comprobar
