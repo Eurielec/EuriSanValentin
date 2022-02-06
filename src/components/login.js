@@ -1,22 +1,23 @@
-import {React, useState} from "react"
+import { React, useState } from "react"
+import { useNavigate } from "react-router-dom";
 
-import {Link} from "react-router-dom";
+import { Button } from "./common"; 
 
 const Login = () => {
 
     const [emisor, setEmisor] = useState("")
 
-    return(
-        <nav>
-            <ul>
-                <li>
-                    <input key="emisor" type="string" name="emisor" value={emisor} placeholder="Escribe tu correo de la UPM"
-                            onChange={ev => setEmisor(ev.target.value)}/>
-                </li>
+    const navigate = useNavigate();
 
-                <td><Link to={`/home/${emisor}`}>Entrar</Link></td>
-            </ul>
-        </nav>)
+    return (
+        <section>
+            <input key="emisor" type="string" name="emisor" value={emisor} placeholder="Escribe tu correo de la UPM"
+                onChange={ev => setEmisor(ev.target.value)} />
+
+            <Button onClick={navigate("/enviar", {state: {emisor: emisor}})}>
+
+            </Button>
+        </section>)
 };
 
 export default Login;
