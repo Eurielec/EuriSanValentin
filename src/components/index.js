@@ -4,7 +4,7 @@ import FormEnviar from "./formEnviar";
 import FormSiPiruletas from "./formSiPiruletas";
 import FormValidar from "./formValidar";
 import VerPiruletas from "./verPiruletas";
-import NavBar from "./navBar";
+import Navbar from "./navbar";
 
 export {
     Login, 
@@ -13,5 +13,5 @@ export {
     FormSiPiruletas, 
     FormValidar, 
     VerPiruletas,
-    NavBar,
+    Navbar,
 }
