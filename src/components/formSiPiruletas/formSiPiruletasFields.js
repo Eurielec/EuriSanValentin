@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Button } from "../common"
 
 const FormSiPiruletasFields = ({ setNombreCompletoOInsta }) => {
 
@@ -6,14 +7,13 @@ const FormSiPiruletasFields = ({ setNombreCompletoOInsta }) => {
     const [instagram, setInstagram] = useState("")
 
     const handlePiruletas = ({ nombreCompleto, instagram }) => {
-        nombreCompleto ?
-            setNombreCompletoOInsta({ nombreCompleto: true, instagram: false, receptor: nombreCompleto })
+        nombreCompleto ? // Check if nombreCompleto is not empty
+            setNombreCompletoOInsta(nombreCompleto)
             :
-            instagram ?
-                setNombreCompletoOInsta({ nombreCompleto: false, instagram: true, receptor: instagram })
-
+            instagram ? // Check if instagram is not empty
+                setNombreCompletoOInsta(instagram)
                 :
-                setNombreCompletoOInsta({ nombreCompleto: false, instagram: false, receptor: "" })
+                setNombreCompletoOInsta("") //Both empty
     }
 
     return (
@@ -22,7 +22,7 @@ const FormSiPiruletasFields = ({ setNombreCompletoOInsta }) => {
                 onChange={ev => setNombreCompleto(ev.target.value)} />
             <input key="instagram" type="text" name="instagram" value={instagram} placeholder="Tu cuenta de Instagram (sin @)"
                 onChange={ev => setInstagram(ev.target.value)} />
-            <Button onClick={ev => handlePiruletas({ nombreCompleto, instagram })}>
+            <Button onClick={handlePiruletas({ nombreCompleto, instagram })}>
                 Comprobar
             </Button>
         </>
