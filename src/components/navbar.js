@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+
 const Navbar = ({emisor}) => {
 
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ const Navbar = ({emisor}) => {
                 <NavbarLogo className="mr-lg-5" to="/" tag={Link}>
                     <img
                         alt="..."
-                        src={require("path/al/logo/de/euri")}
+                        //src={require("path/al/logo/de/euri")}
                     />
                 </NavbarLogo>
                 <Nav className="align-items-center ml-lg-auto" navbar>
