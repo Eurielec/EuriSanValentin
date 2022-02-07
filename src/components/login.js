@@ -14,9 +14,9 @@ const Login = () => {
             <input key="emisor" type="string" name="emisor" value={emisor} placeholder="Escribe tu correo de la UPM"
                 onChange={ev => setEmisor(ev.target.value)} />
 
-            <Button onClick={navigate("/enviar", {state: {emisor: emisor}})}>
+            <button onClick={navigate("/enviar", {state: {emisor: emisor}})}>
 
-            </Button>
+            </button>
         </section>)
 };
 

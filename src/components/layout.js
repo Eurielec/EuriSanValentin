@@ -1,13 +1,11 @@
-import { Outlet } from "react-router-dom";
-import { NavBar } from ".";
+import { Outlet, useLocation } from "react-router-dom";
+import { Navbar } from "./navbar";
 
 
 const Layout = () => {
-    const { state } = useLocation();
-    const { emisor } = state;
+
     return (
         <>
-            <NavBar emisor={emisor}/>
             <Outlet />
         </>
     );
