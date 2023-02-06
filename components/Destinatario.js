@@ -5,8 +5,8 @@ function Destinatario(props) {
     //const [personType, setPersonType] = useState("student");
     //const [fullname, setFullname] = useState("");
     //const [instagram, setInstagram] = useState("");
-    const [group, setGroup] = useState("");
-    const [degree, setDegree] = useState("telecomunications");
+    //const [group, setGroup] = useState("");
+    //const [degree, setDegree] = useState("telecomunications");
     //const [findHint, setFindHint] = useState("");
 
     return (
@@ -19,7 +19,7 @@ function Destinatario(props) {
             name="person-type"
             id="type"
             className="selector"
-            onChange={e => props.setPersonType(e.target.value)}
+            onChange={e => props.personType = e.target.value}
             value={props.personType}
           >
               <option key={1} value="student">
@@ -41,9 +41,9 @@ function Destinatario(props) {
         <input
           className='text-input'
           type="text"
-          placeholder={props.personType === "student" ? "Santiago Muñoz-Chapuli Díaz-Mero" : "Grajal"}
+          placeholder={props.personType === "student" ? "Jaime Vicente Conde" : "Villagrá"}
           value={props.fullname}
-          onChange={e => props.setFullname(e.target.value.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))}
+          onChange={e => props.fullname = e.target.value.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")}
         />
         { props.personType !== "student" ? (
           <>
@@ -54,7 +54,7 @@ function Destinatario(props) {
           type="text"
           placeholder={"C-407.2"}
           value={props.findHint}
-          onChange={e => props.setFindHint(e.target.value.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))}
+          onChange={e => props.findHint = e.target.value.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")}
         />
           </>
         ) : null}
@@ -65,9 +65,9 @@ function Destinatario(props) {
         <input
           className="text-input"
           type="text"
-          placeholder="santi_m_21"
+          placeholder="jamesvicen"
           value={props.instagram}
-          onChange={e => props.setInstagram(e.target.value.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))}
+          onChange={e => props.instagram = e.target.value.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")}
         />
         <label>¿Qué estudia?</label>
         <p className="input-description">Nivel experto, ¿sabes qué estudia?</p>
@@ -76,8 +76,8 @@ function Destinatario(props) {
             name="degree"
             id="degree"
             className="selector"
-            onChange={e => props.setDegree(e.target.value)}
-            value={degree}
+            onChange={e => props.degree = e.target.value}
+            value={props.degree}
           >
             
               <option key={1} value="telecommunications">
@@ -101,9 +101,9 @@ function Destinatario(props) {
         <input
           className="text-input"
           type="text"
-          placeholder="43.2"
-          value={group}
-          onChange={e => props.setGroup(e.target.value.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))}
+          placeholder="35.2"
+          value={props.group}
+          onChange={e => props.group = e.target.value.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")}
         />
           </>
         ) : null

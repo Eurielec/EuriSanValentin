@@ -2,30 +2,42 @@ import { useEffect, useState } from "react";
 import Destinatario from "./Destinatario";
 
 function Form(props) {
-  const [email, setEmail] = useState("");
-  const [personType, setPersonType] = useState("student");
-  const [fullname, setFullname] = useState("");
-  const [instagram, setInstagram] = useState("");
+  //const [email, setEmail] = useState("");
+  //const [personType, setPersonType] = useState("student");
+  //const [fullname, setFullname] = useState("");
+  //const [instagram, setInstagram] = useState("");
   //const [group, setGroup] = useState("");
   //const [degree, setDegree] = useState("telecomunications");
-  const [message, setMessage] = useState("");
-  const [findHint, setFindHint] = useState("");
+  //const [message, setMessage] = useState("");
+  //const [findHint, setFindHint] = useState("");
   const [disable, setDisable] = useState(true);
-
+  const [destinatarios, setDestinatarios] = useState([]);
+  const [destArgs, setDestArgs] = useState([])
   const [nPiruletas, setNumberPiruletas] = useState(1);
 
-  const destinatarios = [];
   for (let i = 0; i < nPiruletas; i++) {
+    setDestArgs([...destArgs], 
+      "",                  // email
+      "student",           // student
+      "",                  // fullname
+      "",                  // instagram
+      "",                  // group
+      "telecomunications", // degree
+      "",                  // message
+      ""                   // findHint
+      )
     destinatarios.push(
     <Destinatario 
-      personType={personType}
-      setPersonType={setPersonType}
-      fullname={fullname}
-      setFullname={setFullname}
-      instagram={instagram}
-      setInstagram={setInstagram}
-      findHint={findHint}
-      setFindHint={setFindHint}
+      personType={destArgs.slice(-1)[5]}
+      //setPersonType={destArgs.slice(-1)[1]}
+      fullname={destArgs(-1)[4]}
+      //setFullname={destArgs(-1)[3]}
+      instagram={destArgs(-1)[3]}
+      group={destArgs(-1)[2]}
+      degree={destArgs(-1)[1]}
+      //setInstagram={setInstagram}
+      findHint={destArgs.slice(-1)[0]}
+      //setFindHint={setFindHint}
       key={i}
       />
     );
@@ -48,27 +60,31 @@ function Form(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let data = {
-      email: email.trim(),
-      personType,
-      name: fullname.trim(),
-      account: instagram.trim().replace("@", ""),
-      group: group.trim(),
-      message,
-      degree,
-      findHint: findHint.trim()
-    };
+    for (let i=0; i++; i<nPiruletas) {
 
-    // console.log("DATA", data);
+      let data = {
+        email: destinatarios[i*6],
+        personType: destinatarios[i*6 + 1],
+        name: destinatarios[i*6 + 2],
+        account: destinatarios[i*6 + 3].replace("@", ""),
+        group: destinatarios[i*6 + 4].trim(),
+        message: destinatarios[i*6 + 5],
+        degree: destinatarios[i*6 + 6],
+        findHint: destinatarios[i*6 + 7].trim()
+      };
 
-    let response = await fetch("/api/send", {
-      method: "POST",
-      headers: {'Content-Type': 'application/json'}, 
-      body: JSON.stringify(data)
-    });
+      // console.log("DATA", data);
+      response = [];
+      let response = response.push(
+        await fetch("/api/send", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'}, 
+        body: JSON.stringify(data)
+      }));
+    }
 
     if (response.ok) {
-      props.setParentMessage(message);
+      props.setParentMessage([...props.message, message]);
       alert("Hemos recibido tu piruleta!");
     }
     
@@ -115,7 +131,7 @@ function Form(props) {
 
           <label>Mensaje</label>
           <p className="input-description">Es tu momento de explayarte. No te olvides de poner &quot;De:&quot; (puede ser anónimo) y &quot;Para:&quot;. Puedes poner lo que quieras. </p>
-          <textarea className="text-box" name="message" value={message} cols="40" rows="5" placeholder="Mucho texto." onChange={e => setMessage(e.target.value)}></textarea>
+          <textarea className="text-box" name="message" value={message} cols="40" rows="5" placeholder="Si te curras este texto, la enamorarás." onChange={e => setMessage(e.target.value)}></textarea>
           
           <h2 className="payment-title">Pago</h2>
           <p className="payment-info">Deberás pagar el número de piruletas que hayas enviado.
