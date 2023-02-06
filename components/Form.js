@@ -30,11 +30,11 @@ function Form(props) {
     <Destinatario 
       personType={destArgs.slice(-1)[5]}
       //setPersonType={destArgs.slice(-1)[1]}
-      fullname={destArgs(-1)[4]}
+      fullname={destArgs.slice(-1)[4]}
       //setFullname={destArgs(-1)[3]}
-      instagram={destArgs(-1)[3]}
-      group={destArgs(-1)[2]}
-      degree={destArgs(-1)[1]}
+      instagram={destArgs.slice(-1)[3]}
+      group={destArgs.slice(-1)[2]}
+      degree={destArgs.slice(-1)[1]}
       //setInstagram={setInstagram}
       findHint={destArgs.slice(-1)[0]}
       //setFindHint={setFindHint}
