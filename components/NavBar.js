@@ -39,7 +39,7 @@ function NavBar() {
         />
       </Link>
       <div className="right-menu">
-     {/* <Link href="/send">
+     /* <Link href="/send">
       <Image
           height={imageClass === "san-valentin reduced" ? 172*0.1 : 172*0.2 }
           width={imageClass === "san-valentin reduced" ? 616*0.1 : 616*0.2 }
@@ -50,7 +50,7 @@ function NavBar() {
           loading="eager"
         />
       </Link>
-  */}
+  */
       <Link href="/check">
       <Image
           height={imageClass === "san-valentin reduced" ? 174*0.1 : 174*0.2 }

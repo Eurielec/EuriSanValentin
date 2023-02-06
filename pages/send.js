@@ -4,7 +4,7 @@ import { Form, Preview } from "../components";
 
 function Send() {
 
-    const [message, setMessage] = useState("");
+    const [message, setMessage] = useState([]);
   return <>
 
     {
