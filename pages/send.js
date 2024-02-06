@@ -1,4 +1,4 @@
-import {useState} from "react";
+{/*import {useState} from "react";
 
 import { Form, Preview } from "../components";
 
@@ -16,4 +16,4 @@ function Send() {
   </>;
 }
 
-export default Send;
+export default Send;*/}

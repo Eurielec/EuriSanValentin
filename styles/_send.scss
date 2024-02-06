@@ -1,7 +1,7 @@
 .form-container {
   @include flexCenter(column);
   padding-bottom: 80px;
-
+}
   .form {
     max-width: 400px;
     @media only screen and (max-width: 600px) {
@@ -106,4 +106,4 @@
       }
     }
   }
-}
+

@@ -60,7 +60,7 @@ function Form(props) {
         {
             // Instagram, email or something
         }
-        <form onSubmit={handleSubmit} className="form">
+        {/*<form onSubmit={handleSubmit} className="form">
           <h2>Sobre tí</h2>
           <label>Email</label>
           <p className="input-description">Para contactar contigo en caso de duda. También para ver si has pagado la piruleta/s que envíes.</p>
@@ -195,7 +195,7 @@ function Form(props) {
               disabled={disable}
             />
           </div>
-      </form>
+        </form>*/}
     </div>
 
     

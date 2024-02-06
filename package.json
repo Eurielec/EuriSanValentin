@@ -11,6 +11,7 @@
     "@supabase/supabase-js": "^1.30.0",
     "next": "12.0.10",
     "react": "17.0.2",
+    "react-buzzfeed-quiz": "^2.0.7",
     "react-dom": "17.0.2",
     "sass": "^1.49.7",
     "sharp": "^0.30.0"

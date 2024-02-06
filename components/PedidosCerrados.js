@@ -1,8 +1,3 @@
-
-
-
-
-
 const PedidosCerrados =()=>{
     return(
         <div className='home'>
