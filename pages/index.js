@@ -4,9 +4,9 @@ function Home() {
   return <div className="home">
 
   <Piruletas/>
-  <Link href="/test">
+  {/*<Link href="/test">
     <button className="button">No te metas aquí</button>
-    </Link>
+</Link>*/}
   
   </div>;
 }
