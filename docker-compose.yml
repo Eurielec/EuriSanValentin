@@ -8,7 +8,20 @@ services:
     environment:
       - SUPABASE_URL=$SUPABASE_URL
       - SUPABASE_ANON=$SUPABASE_ANON
+      - TZ=Europe/Madrid
     ports:
       - 3000:3000
-    environment:
-      - TZ=Europe/Madrid
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.sanvalentin.entrypoints=websecure
+      - traefik.http.routers.sanvalentin.rule=Host(`sanvalentin.$DOMAIN`)
+      - traefik.http.routers.sanvalentin.tls=true
+      - traefik.http.routers.sanvalentin.tls.certresolver=le
+
+
+networks:
+  traefik:
+    name: traefik
+    external: true
