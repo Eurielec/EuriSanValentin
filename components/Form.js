@@ -86,6 +86,7 @@ function Form(props) {
           value={email}
           onChange={e => setEmail(e.target.value.toLowerCase())}
           pattern=".*@(?:alumnos.upm.es|upm.es|.*.upm.es)$"
+          maxLength={60}
         />
         
         <label>Número de {productType}s que quieras enviar</label>
@@ -135,6 +136,7 @@ function Form(props) {
               placeholder={product.personType === "student" ? "Santiago Muñoz-Chapuli Díaz-Mero" : "Grajal"}
               value={product.fullname}
               onChange={e => handleProductChange(index, "fullname", e.target.value)}
+              maxLength={40}
             />
             {product.personType === "student" ? (
               <>
@@ -146,6 +148,7 @@ function Form(props) {
                 placeholder="santi_m_21"
                 value={product.instagram}
                 onChange={e => handleProductChange(index, "instagram", e.target.value)}
+                maxLength={30}
               />
               <label>¿Qué estudia?</label>
               <select
@@ -179,6 +182,7 @@ function Form(props) {
                 placeholder="43.2"
                 value={product.group}
                 onChange={e => handleProductChange(index, "group", e.target.value)}
+                maxLength={10}
               />
               </>
             ) : (
@@ -191,6 +195,7 @@ function Form(props) {
                 placeholder="C-407.2"
                 value={product.findHint}
                 onChange={e => handleProductChange(index, "findHint", e.target.value)}
+                maxLength={50}
               />
               </>
             )}
@@ -204,6 +209,7 @@ function Form(props) {
               rows="5"
               placeholder="Mucho texto."
               onChange={e => handleProductChange(index, "message", e.target.value)}
+              maxLength={200}
             ></textarea>
             
           </div>
