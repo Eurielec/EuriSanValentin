@@ -2,179 +2,213 @@ import { useEffect, useState } from "react";
 
 function Form(props) {
   const [email, setEmail] = useState("");
-  const [personType, setPersonType] = useState("student");
-  const [fullname, setFullname] = useState("");
-  const [instagram, setInstagram] = useState("");
-  const [group, setGroup] = useState("");
-  const [degree, setDegree] = useState("telecomunications");
-  const [message, setMessage] = useState("");
-  const [findHint, setFindHint] = useState("");
+  const [productType, setProductType] = useState("piruleta");
+  const [productCount, setProductCount] = useState(1);
+  const [products, setProducts] = useState([]);
   const [disable, setDisable] = useState(true);
 
   useEffect(() => {
+    setProducts(
+      Array.from({ length: productCount }, () => ({
+        personType: "student",
+        fullname: "",
+        instagram: "",
+        group: "",
+        degree: "telecommunications",
+        message: "",
+        findHint: ""
+      }))
+    );
+  }, [productCount]);
 
-    const isInvalid = () => {
-      if (email === "") return true;
-      if (personType === "student") return fullname === "" && instagram === "";
-      if (personType !== "student") return fullname === "" && findHint === "";
-      return true;
-    }
+  useEffect(() => {
+    setDisable(email === "" || products.some(p => p.fullname === "" && p.instagram === "" && p.findHint === ""));
+  }, [email, products]);
 
-    let invalid = isInvalid();
-
-    setDisable(invalid);
-
-  }, [email, personType, fullname, instagram, findHint])
+  const handleProductChange = (index, field, value) => {
+    const updatedProducts = [...products];
+    updatedProducts[index][field] = value;
+    setProducts(updatedProducts);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let data = {
+  
+    let data = products.map(product => ({
+      product_type: productType,
       email: email.trim(),
-      personType,
-      name: fullname.trim(),
-      account: instagram.trim().replace("@", ""),
-      group: group.trim(),
-      message,
-      degree,
-      findHint: findHint.trim()
-    };
-
+      person_type: product.personType,
+      name: product.fullname.trim(),
+      account: product.instagram.trim().replace("@", ""),
+      group: product.group.trim(),
+      message: product.message,
+      degree: product.degree,
+      find_hint: product.findHint.trim()
+    }));
+  
     // console.log("DATA", data);
-
+  
     let response = await fetch("/api/send", {
       method: "POST",
-      headers: {'Content-Type': 'application/json'}, 
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(data)
     });
-
+  
     if (response.ok) {
-      props.setParentMessage(message);
+      props.setParentMessage(data.map(p => p.message))
+      props.setParentProducts(data);
       alert("Hemos recibido tu piruleta!");
-    }
-    
-    return response;
-  }
+    } 
+  };
+  
 
   return (
     <div className="form-container">
-        {
-            // Instagram, email or something
-        }
-        <form onSubmit={handleSubmit} className="form">
-          <h2>Sobre tí</h2>
-          <label>Email</label>
-          <p className="input-description">Para contactar contigo en caso de duda. También para ver si has pagado la piruleta/s que envíes.</p>
-          <input
-            required
-            className="text-input"
-            type="text"
-            placeholder="email@alumnos.upm.es"
-            value={email}
-            onChange={e => setEmail(e.target.value.toLowerCase())}
-            pattern=".*@(?:alumnos.upm.es|upm.es|.*.upm.es)$"
-          />
-          <h2>Sobre el destinatario</h2>
-          <label>Estudiante, profesor o PAS?</label>
-          <p className="input-description">Mandas la piruleta a un estudiante, un profesor o personal no docente (pecera, secretaría, Quique...)?</p>
-          <select
+      <form onSubmit={handleSubmit} className="form">
+        <h2>¿Qué quieres enviar?</h2>
+        <select
+          className="selector"
+          value={productType}
+          onChange={e => setProductType(e.target.value)}
+        >
+          <option value="piruleta">Piruletas</option>
+          <option value="chocolate">Chocolates</option>
+        </select>
+
+        <h2>Sobre tí</h2>
+        <label>Email</label>
+        <p className="input-description">Para contactar contigo en caso de duda. También para ver si has pagado la piruleta/s que envíes.</p>
+        <input
+          required
+          className="text-input"
+          type="text"
+          placeholder="email@alumnos.upm.es"
+          value={email}
+          onChange={e => setEmail(e.target.value.toLowerCase())}
+          pattern=".*@(?:alumnos.upm.es|upm.es|.*.upm.es)$"
+        />
+        
+        <label>Número de {productType}s que quieras enviar</label>
+        <select
+          className="selector"
+          value={productCount}
+          onChange={e => setProductCount(Number(e.target.value))}
+        >
+          {[1, 2, 3, 4, 5].map(num => (
+            <option key={num} value={num}>{num}</option>
+          ))}
+        </select>
+        <h2>Sobre el destinatario</h2>
+
+        {products.map((product, index) => (
+          <div key={index} className="piruleta-form">
+            <h2>{productType.charAt(0).toUpperCase() + productType.slice(1)} {index + 1}</h2>
+            <label>Estudiante, profesor o PAS?</label>
+            <p className="input-description">Mandas la piruleta a un estudiante, un profesor o personal no docente (pecera, secretaría, Quique...)?</p>
+            <select
               required
-              name="person-type"
+              name={`personType-${index}`}
               id="type"
               className="selector"
-              onChange={e => setPersonType(e.target.value)}
-              value={personType}
+              onChange={e => handleProductChange(index, "personType", e.target.value)}
+              value={product.personType}
             >
-                <option key={1} value="student">
+               <option value="student">
                   Estudiante
                 </option>
-                <option key={2} value="teacher">
+                <option value="teacher">
                   Profesor
                 </option>
-                <option key={3} value="pas">
+                <option value="pas">
                   PAS
                 </option>
             </select>
-          <label>Nombre completo</label>
-          <p className="input-description">{
-          personType === "student"
+            <label>Nombre completo</label>
+            <p className="input-description">{
+          product.personType === "student"
           ? 'Si sabes el nombre completo, genial. Eliminamos ñ y tildes 😃.'
           : 'Nombre por el que se le conozca 🧐.'
           }</p>
-          <input
-            className='text-input'
-            type="text"
-            placeholder={personType === "student" ? "Santiago Muñoz-Chapuli Díaz-Mero" : "Grajal"}
-            value={fullname}
-            onChange={e => setFullname(e.target.value.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))}
-          />
-          { personType !== "student" ? (
-            <>
-            <label>¿Dónde buscamos?</label>
-          <p className="input-description">Despacho o sitio de la universidad donde podamos encontrarle fácilmente.</p>
-          <input
-            className="text-input"
-            type="text"
-            placeholder={"C-407.2"}
-            value={findHint}
-            onChange={e => setFindHint(e.target.value.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))}
-          />
-            </>
-          ) : null}
-          { personType === "student" ? (
-            <>
-            <label>Instagram o Twitter</label>
-          <p className="input-description">Si no te sabes el nombre, puedes darnos el Instagram o el Twitter. Todo suma. Trust the plan 😎. </p>
-          <input
-            className="text-input"
-            type="text"
-            placeholder="santi_m_21"
-            value={instagram}
-            onChange={e => setInstagram(e.target.value.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))}
-          />
-          <label>¿Qué estudia?</label>
-          <p className="input-description">Nivel experto, ¿sabes qué estudia?</p>
-          <select
-              required
-              name="degree"
-              id="degree"
-              className="selector"
-              onChange={e => setDegree(e.target.value)}
-              value={degree}
-            >
-              
-                <option key={1} value="telecommunications">
+            <input
+              className="text-input"
+              type="text"
+              placeholder={product.personType === "student" ? "Santiago Muñoz-Chapuli Díaz-Mero" : "Grajal"}
+              value={product.fullname}
+              onChange={e => handleProductChange(index, "fullname", e.target.value)}
+            />
+            {product.personType === "student" ? (
+              <>
+              <label>Instagram o Twitter</label>
+              <p className="input-description">Si no te sabes el nombre, puedes darnos el Instagram o el Twitter. Todo suma. Trust the plan 😎. </p>
+              <input
+                className="text-input"
+                type="text"
+                placeholder="santi_m_21"
+                value={product.instagram}
+                onChange={e => handleProductChange(index, "instagram", e.target.value)}
+              />
+              <label>¿Qué estudia?</label>
+              <select
+                required
+                name={`degree-${index}`}
+                className="selector"
+                onChange={e => handleProductChange(index, "degree", e.target.value)}
+                value={product.degree}
+              >
+               <option value="telecommunications">
                   Telecomunicación
                 </option>
-                <option key={2} value="biomedicine">
+                <option value="biomedicine">
                   Biomédica
                 </option>
-                <option key={3} value="data">
+                <option value="data">
                   Datos
                 </option>
-                <option key={4} value="muit">
+                <option value="muit">
                   MUIT
                 </option>
-                <option key={5} value="other">
+                <option value="other">
                   Otro
-                </option>
-            </select>
-          <label>Grupo/s</label>
-          <p className="input-description">Sería espectacular si sabes a qué grupo/s va. </p>
-          <input
-            className="text-input"
-            type="text"
-            placeholder="43.2"
-            value={group}
-            onChange={e => setGroup(e.target.value.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))}
-          />
-            </>
-          ) : null
-          }
-          <label>Mensaje</label>
-          <p className="input-description">Es tu momento de explayarte. No te olvides de poner &quot;De:&quot; (puede ser anónimo) y &quot;Para:&quot;. Puedes poner lo que quieras. </p>
-          <textarea className="text-box" name="message" value={message} cols="40" rows="5" placeholder="Mucho texto." onChange={e => setMessage(e.target.value)}></textarea>
-          
-          <h2 className="payment-title">Pago</h2>
+                </option>              
+              </select>
+              <label>Grupo/s</label>
+              <p className="input-description">Sería espectacular si sabes a qué grupo/s va. </p>
+              <input
+                className="text-input"
+                type="text"
+                placeholder="43.2"
+                value={product.group}
+                onChange={e => handleProductChange(index, "group", e.target.value)}
+              />
+              </>
+            ) : (
+              <>
+              <label>¿Dónde buscamos?</label>
+              <p className="input-description">Despacho o sitio de la universidad donde podamos encontrarle fácilmente.</p>
+              <input
+                className="text-input"
+                type="text"
+                placeholder="C-407.2"
+                value={product.findHint}
+                onChange={e => handleProductChange(index, "findHint", e.target.value)}
+              />
+              </>
+            )}
+            <label>Mensaje</label>
+            <p className="input-description">Es tu momento de explayarte. No te olvides de poner &quot;De:&quot; (puede ser anónimo) y &quot;Para:&quot;. Puedes poner lo que quieras. </p>
+            <textarea
+              className="text-box"
+              name={`message-${index}`}
+              value={product.message}
+              cols="40"
+              rows="5"
+              placeholder="Mucho texto."
+              onChange={e => handleProductChange(index, "message", e.target.value)}
+            ></textarea>
+            
+          </div>
+        ))}
+        <h2 className="payment-title">Pago</h2>
           <p className="payment-info">Deberás pagar el número de piruletas que hayas enviado.
           <br/><b className="subtitle">Precios:</b>
           <ul className="prices">
@@ -186,19 +220,17 @@ function Form(props) {
             8, 9 y 10 de 9:00h a 14:30h y de 16:00h a 18:00h
 
           </p>
-          
-          <div className="input-button-container">
-            <input
-              className="input-button"
-              type="submit"
-              value="Submit"
-              disabled={disable}
-            />
-          </div>
-        </form>
-    </div>
 
-    
+        <div className="input-button-container">
+          <input
+            className="input-button"
+            type="submit"
+            value="Enviar"
+            disabled={disable}
+          />
+        </div>
+      </form>
+    </div>
   );
 }
 
