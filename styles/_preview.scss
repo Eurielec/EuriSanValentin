@@ -1,5 +1,5 @@
 .preview-container {
-  @include flexCenter(row);
+  @include flexCenter(column);
   .card-container {
     position: relative;
     width: 200px;
@@ -19,11 +19,17 @@
       top: 0;
       left: 0;
     }
+    .chocolate {
+      transform: rotate(20deg);
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+    }
     .note {
       position: absolute;
       transform: rotate(-6deg);
       padding: 24px;
-
       z-index: 0;
       top: 76px;
       left: 72px;
@@ -33,7 +39,7 @@
       width: 360px;
       border-radius: 20px;
 
-      @include flexCenter(row);
+      @include flexCenter(column);
 
       // Shadow
       box-shadow: 5px 6px 22px -9px rgba(0, 0, 0, 0.5);

@@ -6,7 +6,7 @@ function Check() {
 
   const [account, setAccount] = useState("");
   const [fullname, setFullname] = useState("");
-
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +30,7 @@ function Check() {
     } else {
       router.push('/no_piruleta');
     }
-    
+
     return response;
   }
 
@@ -45,7 +45,8 @@ function Check() {
           type="text"
           placeholder={"Santiago Muñoz-Chapuli"}
           value={fullname}
-          onChange={e => setFullname(e.target.value.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))}
+          //onChange={e => setFullname(e.target.value.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))} //Diacritic no soporta undefined
+          onChange={e => setFullname((e.target.value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""))} 
         />
 
         <label>Instagram o Twitter</label>
@@ -55,7 +56,8 @@ function Check() {
           type="text"
           placeholder="santi_m_21"
           value={account}
-          onChange={e => setAccount(e.target.value.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))}
+          //onChange={e => setAccount(e.target.value.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))}
+          onChange={e => setAccount((e.target.value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""))}
         />
 
         <div className="input-button-container">
@@ -67,7 +69,7 @@ function Check() {
           />
         </div>
       </form>
-      </div>
+    </div>
   )
   
 }

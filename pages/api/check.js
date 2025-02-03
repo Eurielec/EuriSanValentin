@@ -20,19 +20,19 @@ export default async function handler(req, res) {
 
           if (name !== "" && account !== "") {
             var { data, error } = await supabase
-            .from('check_piruleta')
+            .from('piruletas')
             .select('name, account', { count: 'exact' })
             .or(`name.eq.${name}, account.eq.${account}`);
           }
           if (name === "" && account !== "") {
             var { data, error } = await supabase
-            .from('check_piruleta')
+            .from('piruletas')
             .select('name, account', { count: 'exact' })
             .eq('account', account);
           }
           if (name !== "" && account === "") {
             var { data, error } = await supabase
-            .from('check_piruleta')
+            .from('piruletas')
             .select('name, account', { count: 'exact' })
             .eq('name', name);
           }
