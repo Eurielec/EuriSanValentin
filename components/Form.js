@@ -57,7 +57,7 @@ function Form(props) {
     if (response.ok) {
       props.setParentMessage(data.map(p => p.message))
       props.setParentProducts(data);
-      alert("Hemos recibido tu piruleta!");
+      alert("Hemos recibido tu pedido!");
     } 
   };
   
@@ -73,6 +73,7 @@ function Form(props) {
         >
           <option value="piruleta">Piruletas</option>
           <option value="chocolate">Chocolates</option>
+          <option value="piruletaYchocolate">Piruleta + Chocolate</option>
         </select>
 
         <h2>Sobre tí</h2>
@@ -218,8 +219,10 @@ function Form(props) {
           <p className="payment-info">Deberás pagar el número de piruletas que hayas enviado.
           <br/><b className="subtitle">Precios:</b>
           <ul className="prices">
-            <li>0.3 € / piruleta</li>
-            <li>1 € / 4 piruletas</li>
+            <li>0.4 € / piruleta</li>
+            <li>1 € / 3 piruletas</li>
+            <li>0.80 € / chocolate</li>
+            <li>1 € / piruleta y chocolate</li>
           </ul>
 
           <br/><b className="subtitle">Horarios (Hall A):</b><br/>

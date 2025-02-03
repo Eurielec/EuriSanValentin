@@ -9,7 +9,7 @@ const validateRequest = (body) => {
   const studentValidation = !(person_type === "student" && (!degree || degree.trim() === ""));
   const teacherValidation = !(person_type !== "student" && (!find_hint || find_hint.trim() === ""));
   const nameValidation = !(name === undefined && account === undefined);
-  const productValidation = ["piruleta", "chocolate"].includes(product_type); // <-- Validar el tipo de producto
+  const productValidation = ["piruleta", "chocolate", "piruletaYchocolate"].includes(product_type); // <-- Validar el tipo de producto
 
   return emailValidation && lengthValidation && typeValidation && studentValidation && teacherValidation && nameValidation && productValidation;
 };
