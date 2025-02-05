@@ -216,7 +216,7 @@ function Form(props) {
           </div>
         ))}
         <h2 className="payment-title">Pago</h2>
-          <p className="payment-info">Deberás pagar el número de piruletas que hayas enviado.
+          <p className="payment-info">Deberás pagar el número de piruletas y/o chocolates que hayas enviado.
           <br/><b className="subtitle">Precios:</b>
           <ul className="prices">
             <li>0.4 € / piruleta</li>
@@ -226,7 +226,7 @@ function Form(props) {
           </ul>
 
           <br/><b className="subtitle">Horarios (Hall A):</b><br/>
-            8, 9 y 10 de 9:00h a 14:30h y de 16:00h a 18:00h
+            7, 10 y 11 de 9:00h a 17:00h
 
           </p>
 
