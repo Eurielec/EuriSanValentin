@@ -22,8 +22,14 @@ function Form(props) {
   }, [productCount]);
 
   useEffect(() => {
-    setDisable(email === "" || products.some(p => p.fullname === "" && p.instagram === "" && p.findHint === ""));
-  }, [email, products]);
+    setDisable(
+        email.trim() === "" || 
+        products.some(p => 
+            p.fullname.trim() === "" ||
+            p.message.trim() === "" 
+        )
+    );
+}, [email, products]);
 
   const handleProductChange = (index, field, value) => {
     const updatedProducts = [...products];

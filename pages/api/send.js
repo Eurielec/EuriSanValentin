@@ -1,18 +1,16 @@
 import { supabase } from "../../utils";
 
 const validateRequest = (body) => {
-  const { email, person_type, name, account, message, group, degree, find_hint, product_type } = body;
+  const { email, name, message, product_type } = body;
 
   const emailValidation = email && email.match(/^[\w\.-]+@([\w-]+\.)+[\w-]{2,4}$/);
-  const lengthValidation = Object.values(body).every(elem => typeof elem === "string" ? elem.length < 1000 : true);
-  const typeValidation = ["student", "teacher", "pas"].includes(person_type);
-  const studentValidation = !(person_type === "student" && (!degree || degree.trim() === ""));
-  const teacherValidation = !(person_type !== "student" && (!find_hint || find_hint.trim() === ""));
-  const nameValidation = !(name === undefined && account === undefined);
-  const productValidation = ["piruleta", "chocolate", "piruletaYchocolate"].includes(product_type); // <-- Validar el tipo de producto
+  const nameValidation = name && name.trim().length > 0;  // Nombre obligatorio
+  const messageValidation = message && message.trim().length > 0;  // Mensaje obligatorio
+  const productValidation = ["piruleta", "chocolate", "piruletaYchocolate"].includes(product_type); 
 
-  return emailValidation && lengthValidation && typeValidation && studentValidation && teacherValidation && nameValidation && productValidation;
+  return emailValidation && nameValidation && messageValidation && productValidation;
 };
+
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -35,7 +33,7 @@ export default async function handler(req, res) {
     const { data, error } = await supabase
       .from('piruletas') 
       .insert(req.body, { returning: "minimal" });// So it doesn't perform a select after it finishes
-  if (error) {
+    if (error) {
       console.error("Insert Error:", error);
       return res.status(500).json({ error: error.message });
     }
