@@ -1,0 +1,10 @@
+.cerrado {
+    @include flexCenter(column);
+    max-width: 600px;
+    margin: auto;
+
+    @media only screen and (max-width: 600px) {
+      margin: 0;
+      padding: 20px;
+    }
+}
