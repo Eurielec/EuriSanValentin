@@ -50,7 +50,7 @@ function NavBar() {
           loading="eager"
         />
   </Link>*/}  
-      {<Link href="/send">
+      {/*<Link href="/send">
       <Image
           height={imageClass === "san-valentin reduced" ? 172*0.1 : 172*0.2 }
           width={imageClass === "san-valentin reduced" ? 616*0.1 : 616*0.2 }
@@ -60,7 +60,7 @@ function NavBar() {
           alt="Enviar"
           loading="eager"
         />
-  </Link>}  
+  </Link>*/}  
  
       <Link href="/check">
       <Image
@@ -73,7 +73,7 @@ function NavBar() {
           loading="eager"
         />
       </Link> 
-      <Link href="mailto:it@eestec.es">
+      <Link href="mailto:eurielec.eestec@gmail.com ">
       <Image
           height={imageClass === "san-valentin reduced" ? 170*0.1 : 170*0.2 }
           width={imageClass === "san-valentin reduced" ? 765*0.1 : 765*0.2 }

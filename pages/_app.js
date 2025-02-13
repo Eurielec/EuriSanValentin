@@ -14,7 +14,7 @@ export default function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
         <Layout>
-          {/*<PedidosCerrados />*/}
+          {<PedidosCerrados />}
            <Component {...pageProps} /> 
         </Layout>
     </div>
