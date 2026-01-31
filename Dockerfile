@@ -1,5 +1,5 @@
 # pull official base image
-FROM node:erbium-bullseye-slim
+FROM node:14-bullseye-slim
 
 # set working directory
 WORKDIR /app
