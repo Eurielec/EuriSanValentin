@@ -1,5 +1,7 @@
+@use "functions";
+
 .home {
-  @include flexCenter(column);
+  @include functions.flexCenter(column);
   // height: 1124px;
 }
 .button{

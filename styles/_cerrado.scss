@@ -1,5 +1,7 @@
+@use "functions";
+
 .cerrado {
-    @include flexCenter(column);
+    @include functions.flexCenter(column);
     max-width: 600px;
     margin: auto;
 

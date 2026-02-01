@@ -1,5 +1,8 @@
+@use "functions";
+@use "variables";
+
 .preview-container {
-  @include flexCenter(column);
+  @include functions.flexCenter(column);
   .card-container {
     position: relative;
     width: 200px;
@@ -34,12 +37,12 @@
       top: 76px;
       left: 72px;
 
-      background-color: $white;
+      background-color: variables.$white;
       max-height: 300px;
       width: 360px;
       border-radius: 20px;
 
-      @include flexCenter(column);
+      @include functions.flexCenter(column);
 
       // Shadow
       box-shadow: 5px 6px 22px -9px rgba(0, 0, 0, 0.5);

@@ -1,34 +1,71 @@
+@use "functions";
+@use "variables" as *; // Cargamos todo para usar $red, $white sin prefijo
+
 .form-container {
-  @include flexCenter(column);
+  @include functions.flexCenter(column);
   padding-bottom: 80px;
-}
+
   .form {
     max-width: 400px;
+    width: 100%;
+    @include functions.flexCenter(column);
+    align-items: flex-start;
+
     @media only screen and (max-width: 600px) {
       margin: 0;
       padding: 20px;
     }
-    @include flexCenter(column);
-    align-items: flex-start;
+
+    // --- ESTILO DEL STOCK (Ahora dentro de .form) ---
+    .stock-info {
+      font-family: 'OpenSans', sans-serif;
+      font-size: 0.9rem;
+      margin-top: -5px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: $secondaryBlack;
+
+      .status-dot {
+        height: 10px;
+        width: 10px;
+        background-color: #28a745; // Verde
+        border-radius: 50%;
+        display: inline-block;
+      }
+
+      &.low-stock {
+        color: $red;
+        font-weight: bold;
+        
+        .status-dot {
+          background-color: $red;
+          animation: blink 1s infinite;
+        }
+      }
+    }
+
+    // --- RESTO DE ELEMENTOS ---
     .input-description {
       font-size: 0.7em;
       font-weight: 100;
       margin: 2px;
       color: $secondaryBlack;
     }
-    .text-input {
+
+    .text-input, .selector {
       border: 2px solid $red;
       border-radius: 10px;
-      height: 36px;
-      text-align: center;
-      width: 98%;
+      width: 100%; // Cambiado a 100% para evitar desajustes
       margin-top: 4px;
       margin-bottom: 16px;
-
-      &:focus {
-        outline: none;
-      }
+      background-color: $white;
+      &:focus { outline: none; }
     }
+
+    .text-input { height: 36px; text-align: center; }
+    .selector { height: 42px; }
 
     .text-box {
       border: 2px solid $red;
@@ -36,28 +73,10 @@
       height: 200px;
       padding: 8px;
       text-align: center;
-      width: 95%;
-      margin-top: 4px;
-      margin-bottom: 16px;
-
-      &:focus {
-        outline: none;
-      }
-    }
-
-    .selector {
       width: 100%;
       margin-top: 4px;
       margin-bottom: 16px;
-      text-align: center;
-      border: 2px solid $red;
-      border-radius: 10px;
-      height: 42px;
-      background-color: $white;
-
-      &:focus {
-        outline: none;
-      }
+      &:focus { outline: none; }
     }
 
     .payment-title {
@@ -66,19 +85,10 @@
       margin-bottom: 0px;
     }
 
-    .payment-info {
-      font-weight: 300;
-      font-size: 0.8em;
-
-      .prices {
-        margin: 2px;
-      }
-    }
-
     .input-button-container {
       margin-top: 12px;
       width: 100%;
-      @include flexCenter(row);
+      @include functions.flexCenter(row);
 
       .input-button {
         border-radius: 12px;
@@ -87,23 +97,19 @@
         font-weight: 800;
         background-color: $red;
         border: none;
-        width: 72px;
-
-        // Transition
+        width: 100px; // Un poco más ancho para que quepa bien el texto
         transition: transform 0.2s;
-
-        // Zoom on hover
-        &:hover {
-          transform: scale(1.1);
-        }
-
-        &:disabled {
-          background-color: darkgrey;
-        }
-
-        // Shadow
         box-shadow: 5px 6px 22px -9px rgba(0, 0, 0, 0.5);
+
+        &:hover:not(:disabled) { transform: scale(1.1); cursor: pointer; }
+        &:disabled { background-color: darkgrey; }
       }
     }
   }
+}
 
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}

@@ -1,8 +1,10 @@
+@use "functions";
+
 .piruletas-result-container {
-  @include flexCenter(column);
+  @include functions.flexCenter(column);
 
   .message-container {
-    @include flexCenter(column);
+    @include functions.flexCenter(column);
     max-width: 600px;
     @media only screen and (max-width: 600px) {
       margin: 0;

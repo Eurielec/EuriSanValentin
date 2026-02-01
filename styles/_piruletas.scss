@@ -1,3 +1,5 @@
+@use "functions";
+
 .piruletas-container {
-  @include flexCenter(column);
+  @include functions.flexCenter(column);
 }

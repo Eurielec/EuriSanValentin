@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 
 function Form(props) {
   const [email, setEmail] = useState("");
+  const [senderAccount, setSenderAccount] = useState(""); 
   const [productType, setProductType] = useState("piruleta");
   const [productCount, setProductCount] = useState(1);
   const [products, setProducts] = useState([]);
   const [disable, setDisable] = useState(true);
+  const [chocolatesLeft, setChocolatesLeft] = useState(null);
+  const STOCK_TOTAL = 108;
 
   useEffect(() => {
     setProducts(
@@ -23,13 +26,30 @@ function Form(props) {
 
   useEffect(() => {
     setDisable(
-        email.trim() === "" || 
-        products.some(p => 
-            p.fullname.trim() === "" ||
-            p.message.trim() === "" 
-        )
+      email.trim() === "" || 
+      products.some(p => 
+        p.fullname.trim() === "" ||
+        p.message.trim() === "" ||
+        ((p.personType === "teacher" || p.personType === "pas") && p.findHint.trim() === "")
+      )
     );
-}, [email, products]);
+  }, [email, senderAccount, products]);
+
+  useEffect(() => {
+    async function fetchStock() {
+      try {
+        document.querySelector('.form-container').classList.add('loading');
+        const data = await fetch('/api/stock').then(res => res.json());
+        //const data = { sold: 108 };  //testing sold out
+        setChocolatesLeft(STOCK_TOTAL - data.sold);
+      } catch (e) {
+        console.error("Error cargando stock", e);
+      } finally {
+        document.querySelector('.form-container').classList.remove('loading');
+      }
+    }
+    fetchStock();
+  }, []);
 
   const handleProductChange = (index, field, value) => {
     const updatedProducts = [...products];
@@ -39,10 +59,16 @@ function Form(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
+    if (productType === "chocolate" && chocolatesLeft <= 0) {
+      alert("Lo sentimos, los chocolates están agotados. Por favor, elige otro producto.");
+      return;
+    }
+
     let data = products.map(product => ({
       product_type: productType,
       email: email.trim(),
+      sender_account: senderAccount.trim().replace("@", ""), 
       person_type: product.personType,
       name: product.fullname.trim(),
       account: product.instagram.trim().replace("@", ""),
@@ -72,14 +98,24 @@ function Form(props) {
     <div className="form-container">
       <form onSubmit={handleSubmit} className="form">
         <h2>¿Qué quieres enviar?</h2>
+      {chocolatesLeft !== null && (
+          <div className={`stock-info ${chocolatesLeft < 20 ? 'low-stock' : ''}`}>
+            <span className="status-dot"></span>
+              <span>
+                {chocolatesLeft > 0 
+                    ? `Nos quedan: ${chocolatesLeft} chocolates` 
+                    : "Chocolates agotados (Solo piruletas)"}
+                </span>
+            </div>
+  )}
         <select
           className="selector"
           value={productType}
           onChange={e => setProductType(e.target.value)}
         >
           <option value="piruleta">Piruletas</option>
-          <option value="chocolate">Chocolates</option>
-          <option value="piruletaYchocolate">Piruleta + Chocolate</option>
+          {chocolatesLeft > 0 && <option value="chocolate">Chocolates</option>}
+          {chocolatesLeft > 0 && <option value="piruletaYchocolate">Piruleta + Chocolate</option>}
         </select>
 
         <h2>Sobre tí</h2>
@@ -94,6 +130,20 @@ function Form(props) {
           onChange={e => setEmail(e.target.value.toLowerCase())}
           pattern=".*@(?:alumnos.upm.es|upm.es|.*.upm.es)$"
           maxLength={60}
+        />
+
+        <label>Tu Instagram (Opcional)</label>
+        <p className="input-description">
+            Si quieres participar en los <b>sorteos de los sponsors</b>, déjanos tu Instagram. 
+            Si lo dejas vacío, no participarás.
+        </p>
+        <input
+          className="text-input"
+          type="text"
+          placeholder="@tu_usuario"
+          value={senderAccount}
+          onChange={e => setSenderAccount(e.target.value)}
+          maxLength={30}
         />
         
         <label>Número de {productType}s que quieras enviar</label>
@@ -134,8 +184,8 @@ function Form(props) {
             <label>Nombre completo</label>
             <p className="input-description">{
           product.personType === "student"
-          ? 'Si sabes el nombre completo, genial. Eliminamos ñ y tildes 😃.'
-          : 'Nombre por el que se le conozca 🧐.'
+          ? 'Si sabes el nombre completo, genial. Eliminamos ñ y tildes.'
+          : 'Nombre por el que se le conozca.'
           }</p>
             <input
               className="text-input"
@@ -195,13 +245,14 @@ function Form(props) {
             ) : (
               <>
               <label>¿Dónde buscamos?</label>
-              <p className="input-description">Despacho o sitio de la universidad donde podamos encontrarle fácilmente.</p>
+              <p className="input-description">Despacho, hora y lugar donde va a dar clase o sitio de la universidad donde podamos encontrarle fácilmente. Cuanto más preciso seas, más fácil será para nosotros encontrarle.</p>
               <input
                 className="text-input"
                 type="text"
                 placeholder="C-407.2"
                 value={product.findHint}
                 onChange={e => handleProductChange(index, "findHint", e.target.value)}
+                required
                 maxLength={50}
               />
               </>
@@ -232,7 +283,7 @@ function Form(props) {
           </ul>
 
           <br/><b className="subtitle">Horarios (Hall A):</b><br/>
-            7, 10 y 11 de 9:00h a 17:00h
+            9, 10 y 11 de 9:00h a 17:00h
 
           </p>
 

@@ -32,16 +32,16 @@ export default async function handler(req, res) {
   try {
     const { data, error } = await supabase
       .from('piruletas') 
-      .insert(req.body, { returning: "minimal" });// So it doesn't perform a select after it finishes
+      .insert(req.body, { returning: "minimal" });
+      
     if (error) {
       console.error("Insert Error:", error);
       return res.status(500).json({ error: error.message });
     }
 
-    return res.status(200).json({ message: "Productos enviados con éxito" });
+    return res.status(200).json({ message: "Enviado con éxito" });
 
   } catch (err) {
-    console.error("Unexpected Server Error:", err);
-    return res.status(500).json({ error: "Error inesperado en el servidor" });
+    return res.status(500).json({ error: "Error de servidor" });
   }
 }

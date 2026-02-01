@@ -1,39 +1,85 @@
+@use "sass:color";
+@use "functions";
+@use "variables";
+
 .navbar-container {
-  @include flexCenter(row);
+  @include functions.flexCenter(row);
   justify-content: space-between;
-  margin: clamp(20px, 40px, 100px);
-  padding: clamp(10px, 20px, 40px);
+  margin: clamp(20px, 30px, 60px); // Márgenes dinámicos
+  padding: 0 20px;
+  width: 100%;
+  max-width: 1200px; // Para que no se estire infinito en pantallas gigantes
+  box-sizing: border-box;
 
-  @media only screen and (max-width: 600px) {
-    margin: 0;
-    padding: 20px;
-    @include flexCenter(column);
+  @media only screen and (max-width: 768px) {
+    @include functions.flexCenter(column);
+    margin: 20px 0;
+    gap: 15px;
   }
 
-  overflow: hidden;
+  // Estilo del Logo "San Valentín"
+  .logo-container {
+    .logo-text {
+      font-family: 'Lobster', cursive;
+      font-size: 3.5rem; // Tamaño grande
+      color: variables.$red; 
+      text-decoration: none;
+      text-shadow: 2px 2px 0px rgba(0,0,0,0.1); // Sombra suave
+      transition: transform 0.2s;
 
-  .san-valentin {
-    height: 3em;
-  }
+      &:hover {
+        transform: scale(1.05) rotate(-2deg); // Pequeña animación al pasar el ratón
+        cursor: pointer;
+      }
 
-  .reduced {
-    height: 2em;
-  }
-
-  a {
-    font-size: 1.2em;
-    color: $red;
-    font-family: "Cooper-Black";
-    font-weight: 800;
-    text-decoration: none;
-    text-align: left;
-  }
-  .right-menu {
-    @include flexCenter(row);
-    @media only screen and (max-width: 600px) {
-      padding-top: 16px;
+      @media only screen and (max-width: 600px) {
+        font-size: 2.5rem; // Más pequeño en móvil
+      }
     }
-    align-items: flex-end;
-    width: clamp(300px, 40%, 600px);
+  }
+
+  // Estilo de los enlaces de la derecha
+  .right-menu {
+    @include functions.flexCenter(row);
+    gap: 30px; // Separación entre enlaces
+
+    @media only screen and (max-width: 600px) {
+      width: 100%;
+      justify-content: center;
+      flex-wrap: wrap; // Si no caben, que bajen de línea
+      gap: 15px;
+    }
+
+    .nav-link {
+      font-family: 'Lobster', cursive;
+      font-size: 1.8rem;
+      color: variables.$red; 
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s;
+
+      // Efecto de subrayado al pasar el ratón
+      &::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 3px;
+        bottom: -5px;
+        left: 0;
+        background-color: variables.$red;
+        transition: width 0.3s;
+      }
+
+      &:hover {
+        color: color.adjust(variables.$red, $lightness: -10%); // Un poco más oscuro al pasar el ratón
+        &::after {
+            width: 100%;
+        }
+      }
+
+      @media only screen and (max-width: 600px) {
+        font-size: 1.4rem;
+      }
+    }
   }
 }

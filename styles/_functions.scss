@@ -1,3 +1,5 @@
+@use "variables";
+
 @mixin imageCenter() {
   // Mixin to center an image inside its parent
   display: block;
@@ -23,8 +25,8 @@
 }
 
 @mixin button() {
-    background: $black;
-    color: $white;
+    background: variables.$black;
+    color: variables.$white;
     font-size: 1.2em;
     height: 40px;
     width: 200px;

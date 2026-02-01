@@ -1,0 +1,254 @@
+@use "sass:color";
+@use "functions";
+@use "variables";
+
+.polaroid-page {
+  @include functions.flexCenter(column);
+  padding: 40px 20px;
+  // Opcional: un fondo de corcho o patrón sutil quedaría genial aquí, 
+  // pero con el degradado rosa de la app también funciona.
+
+  .title-section {
+    text-align: center;
+    margin-bottom: 60px;
+
+    h1 {
+      font-family: 'Lobster', cursive;
+      font-size: 3.5rem;
+      color: variables.$white; // Blanco para contrastar con el fondo rosa
+      text-shadow: 2px 2px 0px variables.$red; // Sombra dura roja
+      margin-bottom: 10px;
+    }
+    p {
+      color: variables.$secondaryBlack;
+      font-weight: 600;
+    }
+  }
+  // ... dentro de .polaroid-page ...
+
+  .rules-container {
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 2px dashed variables.$red; // Borde punteado rojo
+    border-radius: 15px;
+    padding: 20px 40px;
+    margin-bottom: 50px;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    transform: rotate(-1deg); // Ligera rotación para que parezca pegado a mano
+
+    .rules-title {
+      font-family: 'Lobster', cursive;
+      color: variables.$red;
+      font-size: 2rem;
+      margin: 0 0 15px 0;
+    }
+
+    .rules-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left; // Texto alineado a la izquierda para mejor lectura
+
+      li {
+        font-family: "OpenSans";
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: flex-start;
+        color: variables.$secondaryBlack;
+
+        .icon {
+          font-size: 1.5rem;
+          margin-right: 15px;
+        }
+
+        strong {
+            color: variables.$red;
+        }
+
+        .accounts {
+            display: block; // En nueva línea
+            font-weight: 800;
+            color: variables.$black;
+            margin-top: 5px;
+            font-family: "Cooper-Black";
+        }
+      }
+    }
+
+    .rules-note {
+        margin-top: 10px;
+        font-size: 0.9rem;
+        color: #666;
+        font-style: italic;
+    }
+  }
+
+  // ... sigue .polaroid-gallery ...
+
+  .polaroid-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px; // Bastante espacio para que no se choquen al rotar
+    max-width: 1000px;
+  }
+
+  .polaroid-frame {
+    background-color: variables.$white;
+    padding: 15px 15px 25px 15px; // Más padding abajo para el texto
+    width: 240px;
+    box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2); // Sombra realista
+    position: relative;
+    transition: all 0.3s ease;
+    
+    // --- ANIMACIÓN AL PASAR RATÓN ---
+    &:hover {
+      transform: scale(1.1) rotate(0deg) !important; // Se endereza y crece
+      box-shadow: 10px 20px 30px rgba(0, 0, 0, 0.3);
+      z-index: 10; // Se pone por encima de las demás
+    }
+
+    // --- ROTACIÓN ALTERNA (Efecto Desordenado) ---
+    &:nth-child(odd) {
+      transform: rotate(-3deg);
+      .tape {
+        transform: rotate(-5deg) translateX(-50%);
+      }
+    }
+    &:nth-child(even) {
+      transform: rotate(2deg);
+      margin-top: 30px; // Bajamos un poco las pares para romper la cuadrícula
+      .tape {
+        transform: rotate(5deg) translateX(-50%);
+      }
+    }
+
+    // --- CINTA ADHESIVA (Tape) ---
+    .tape {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      width: 100px;
+      height: 30px;
+      background-color: rgba(255, 255, 255, 0.5); // Semitransparente
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      backdrop-filter: blur(2px); // Efecto translúcido moderno
+      z-index: 5;
+      border-left: 2px dashed rgba(0,0,0,0.1); // Efecto corte
+      border-right: 2px dashed rgba(0,0,0,0.1);
+    }
+
+    // --- FOTO ---
+    .photo-area {
+      background-color: variables.$grey; // Fondo gris suave detrás del logo
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 15px;
+      border: 1px solid #eee;
+    }
+
+    // --- TEXTO ---
+    .caption-area {
+      text-align: center;
+      
+      .handwritten-title {
+        font-family: 'Lobster', cursive; // Tu fuente favorita
+        color: variables.$red;
+        font-size: 1.6rem;
+        margin: 5px 0;
+        line-height: 1.2;
+      }
+
+      .small-desc {
+        font-family: "Cooper-Black";
+        font-size: 0.9rem;
+        margin: 5px 0 0 0;
+        color: variables.$black;
+      }
+      
+      .small-detail {
+        font-size: 0.8rem;
+        color: #666;
+        margin-top: 2px;
+      }
+
+    }
+  }
+  .footer-info {
+    margin-top: 80px;
+    margin-bottom: 40px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8); // Fondo semitransparente
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 90%;
+    border: 1px solid rgba(255, 255, 255, 0.9);
+
+    h3 {
+      font-family: "Cooper-Black";
+      color: variables.$red;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-family: "OpenSans";
+      color: variables.$secondaryBlack;
+      margin-bottom: 20px;
+    }
+
+    .pdf-container {
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+      
+      .small-text {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+        color: #666;
+      }
+
+      .pdf-button {
+        display: inline-block;
+        background-color: variables.$red;
+        color: variables.$white;
+        font-family: "OpenSans";
+        font-weight: 700;
+        text-decoration: none;
+        padding: 12px 25px;
+        border-radius: 50px; // Botón redondeado
+        transition: transform 0.2s, background-color 0.2s;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+
+        &:hover {
+          background-color: color.adjust(variables.$red, $lightness: -10%);
+          transform: scale(1.05);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  // --- MÓVIL ---
+  @media only screen and (max-width: 600px) {
+    .polaroid-gallery {
+      gap: 30px;
+    }
+    .polaroid-frame {
+      width: 100%; // Ocupa todo el ancho en móvil
+      max-width: 280px;
+      
+      &:nth-child(even) {
+        margin-top: 0; // Quitamos el margen extra en móvil
+      }
+    }
+  }
+
+  
+}
