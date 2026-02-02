@@ -128,7 +128,7 @@ function Form(props) {
           placeholder="email@alumnos.upm.es"
           value={email}
           onChange={e => setEmail(e.target.value.toLowerCase())}
-          pattern=".*@(?:alumnos.upm.es|upm.es|.*.upm.es)$"
+          pattern=".*@.*\.upm\.es$"
           maxLength={60}
         />
 
@@ -245,11 +245,11 @@ function Form(props) {
             ) : (
               <>
               <label>¿Dónde buscamos?</label>
-              <p className="input-description">Despacho, hora y lugar donde va a dar clase o sitio de la universidad donde podamos encontrarle fácilmente. Cuanto más preciso seas, más fácil será para nosotros encontrarle.</p>
+              <p className="input-description">Despacho, hora y lugar donde va a dar clase o sitio de la universidad donde podamos encontrarle fácilmente. Cuanto más preciso seas, más fácil será para nosotros encontrarle. Si no especificas despacho Y clase no podremos garantizar el reparto</p>
               <input
                 className="text-input"
                 type="text"
-                placeholder="C-407.2"
+                placeholder="C-407.2; A134"
                 value={product.findHint}
                 onChange={e => handleProductChange(index, "findHint", e.target.value)}
                 required
