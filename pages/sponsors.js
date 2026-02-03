@@ -2,6 +2,13 @@ import Image from "next/image";
 
 const prizes = [
   {
+    sponsor: "104studio",
+    reward: 'Nails Set',
+    desc: "",
+    instagram:"@104stud.io",
+    logo: "/assets/sponsors/104studio.png",
+  },
+  {
     sponsor: "Kreta Frozen Yogurt",
     reward: 'Cita Dulce (x3)',
     desc: "Vales para 2 personas",
@@ -28,13 +35,6 @@ const prizes = [
     desc: 'Edición "La Mansión Siniestra"',
     instagram:"@exitmadrid",
     logo: "/assets/sponsors/exit.png",
-  },
-  {
-    sponsor: "104studio",
-    reward: 'Nails Set',
-    desc: "",
-    instagram:"@104stud.io",
-    logo: "/assets/sponsors/104studio.png",
   },
 ];
 
