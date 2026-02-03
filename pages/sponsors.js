@@ -51,7 +51,11 @@ function Sponsors() {
             <strong>Síguenos en Instagram:</strong> 
             <br/>
             {/* Ajusta las cuentas aquí según necesites */}
-            <span className="accounts">@eesteclcmadrid • @104stud.io • @kreta_frozenyogurt </span>
+            <span className="accounts">
+              <a href="https://instagram.com/eesteclcmadrid" target="_blank" rel="noopener noreferrer">@eesteclcmadrid</a> • 
+              <a href="https://instagram.com/104stud.io" target="_blank" rel="noopener noreferrer">@104stud.io</a> • 
+              <a href="https://instagram.com/kreta_frozenyogurt" target="_blank" rel="noopener noreferrer">@kreta_frozenyogurt</a>
+            </span>
           </li>
         </ul>
         <p className="rules-note">¡Cada producto comprado es una participación extra!</p>
