@@ -5,30 +5,35 @@ const prizes = [
     sponsor: "Kreta Frozen Yogurt",
     reward: 'Cita Dulce (x3)',
     desc: "Vales para 2 personas",
+    instagram:"@kreta_frozenyogurt",
     logo: "/assets/sponsors/kreta.png",
   },
   {
     sponsor: "Alfredo's Pasta",
     reward: 'Cita Italiana (x5)',
     desc: "Vales para 2 personas",
+    instagram:"@alfredos.es",
     logo: "/assets/sponsors/alfredos.png",
   },
   {
     sponsor: "EXIT Madrid",
     reward: 'Bono Street Escape',
     desc: "Aventura urbana para 4 personas",
+    instagram:"@exitmadrid",
     logo: "/assets/sponsors/exit.png",
   },
   {
     sponsor: "EXIT Madrid",
     reward: 'Juego de Mesa EXIT',
     desc: 'Edición "La Mansión Siniestra"',
+    instagram:"@exitmadrid",
     logo: "/assets/sponsors/exit.png",
   },
   {
     sponsor: "104studio",
     reward: 'Nails Set',
     desc: "",
+    instagram:"@104stud.io",
     logo: "/assets/sponsors/104studio.png",
   },
 ];
@@ -82,6 +87,7 @@ function Sponsors() {
               <h3 className="handwritten-title">{p.reward}</h3>
               <p className="small-desc">{p.sponsor}</p>
               <p className="small-detail">{p.desc}</p>
+              <a href={`https://instagram.com/${p.instagram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="instagram-link">{p.instagram}</a>
             </div>
           </div>
         ))}
