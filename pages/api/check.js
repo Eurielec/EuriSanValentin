@@ -4,8 +4,6 @@ const validateRequest = (body) => {
     const { name, account } = body;
   
     const nameValidation = !(name === undefined && account === undefined)
-    console.log("Neither name nor account validation:")
-    console.log(nameValidation)
   
     return nameValidation;
   }

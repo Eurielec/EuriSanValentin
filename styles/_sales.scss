@@ -1,0 +1,49 @@
+.progress-bar-container {
+  margin-top: 20px;
+}
+
+.progress-bar {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 20px;
+  position: relative;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #4caf50;
+  width: 0%; /* This will be dynamically updated */
+  transition: width 0.5s ease-in-out;
+}
+
+.sales-container {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sales-container h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.sales-container p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.sales-container .positive-balance {
+  color: green;
+  font-weight: bold;
+}
+
+.sales-container .negative-balance {
+  color: red;
+  font-weight: bold;
+}

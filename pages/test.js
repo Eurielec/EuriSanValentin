@@ -291,7 +291,7 @@ const test = () => {
               resultID: 2,
               backgroundColor: color4,
               fontColor: "rgb(53,51,48)",
-            },],},
+            },],}
      ]}
      
       results={[

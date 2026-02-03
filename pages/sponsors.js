@@ -73,21 +73,22 @@ function Sponsors() {
             <div className="tape"></div>
             
             <div className="photo-area">
-              <Image 
-                src={p.logo} 
-                alt={p.sponsor} 
-                width={200}
-                height={200}
-                objectFit="contain"
-                className="sponsor-img"
-              />
+              <a href={`https://instagram.com/${p.instagram.replace('@', '')}`} target="_blank" rel="noopener noreferrer">
+                <Image 
+                  src={p.logo} 
+                  alt={p.sponsor} 
+                  width={200}
+                  height={200}
+                  objectFit="contain"
+                  className="sponsor-img"
+                />
+              </a>
             </div>
             
             <div className="caption-area">
               <h3 className="handwritten-title">{p.reward}</h3>
               <p className="small-desc">{p.sponsor}</p>
               <p className="small-detail">{p.desc}</p>
-              <a href={`https://instagram.com/${p.instagram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="instagram-link">{p.instagram}</a>
             </div>
           </div>
         ))}

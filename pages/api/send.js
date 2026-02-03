@@ -17,8 +17,6 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Método no permitido" });
   }
 
-  console.log("Incoming request body:", JSON.stringify(req.body, null, 2));
-
   if (!Array.isArray(req.body)) {
     console.error("Error: La solicitud debe ser un array de productos.");
     return res.status(400).json({ error: "Solicitud no válida. Debe ser un array de productos (piruletas o chocolates)." });
