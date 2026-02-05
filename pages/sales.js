@@ -17,7 +17,7 @@ export default function Sales() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authError, setAuthError] = useState(false);
 
-  const INVERSION_INICIAL = 100;
+  const INVERSION_INICIAL = 96.43;
 
   useEffect(() => { setHasMounted(true); }, []);
 
