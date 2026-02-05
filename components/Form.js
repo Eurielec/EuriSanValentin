@@ -8,7 +8,7 @@ function Form(props) {
   const [products, setProducts] = useState([]);
   const [disable, setDisable] = useState(true);
   const [chocolatesLeft, setChocolatesLeft] = useState(null);
-  const STOCK_TOTAL = 108;
+  const STOCK_TOTAL = 158;
 
   useEffect(() => {
     setProducts(
